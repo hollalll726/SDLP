@@ -1,6 +1,6 @@
 # SDLP
 This is for Solving Daily Life Promblem.
-To make  my life more comfortalbe.
+To make  my life more comfortable.
 
 Steps to Solving Problem.
 1. Recognize anything that make me uncomfortalbe.
