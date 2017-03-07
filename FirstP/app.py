@@ -22,12 +22,12 @@ import Adafruit_DHT
 class LEDONOFF:
     #LED setting
     GPIO.setmode(GPIO.BOARD)
-    LED = 11
+    #LED = 11
     #am2302 setting
     pin = '23'
     sensor = Adafruit_DHT.DHT22
 
-    GPIO.setup(LED,GPIO.OUT,initial = GPIO.LOW)
+    #GPIO.setup(LED,GPIO.OUT,initial = GPIO.LOW)
     
     def LED_ON(self):
         GPIO.output(self.LED,GPIO.HIGH)
