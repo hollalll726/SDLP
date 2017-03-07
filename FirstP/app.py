@@ -57,13 +57,13 @@ def message():
 
     response_data = data.read().decode('utf8')
     response_data = json.loads(response_data)
-    
+    answer = "" 
     if 'action' in response_data['result']:
       answer = IOT_handler(response_data['result']['action'])
-      if answer is not "":
+    if answer is not "":
         res = json.dumps({'message': {'text': answer}},
                     indent=4)
-      else:
+    else:
         res = json.dumps({'message': {'text': response_data['result']['fulfillment']['speech']}},
                        indent=4)
     r = make_response(res)
