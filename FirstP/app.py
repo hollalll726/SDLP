@@ -21,7 +21,6 @@ import RPi.GPIO as GPIO
 import Adafruit_DHT
 class LEDONOFF:
     #LED setting
-    GPIO.close()
     GPIO.setmode(GPIO.BOARD)
     LED = 11
     #am2302 setting
