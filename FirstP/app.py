@@ -54,6 +54,7 @@ def message():
     text_request.session_id = request_data['user_key']
     text_request.query = request_data['content']
     data = text_request.getresponse()
+
     response_data = data.read().decode('utf8')
     response_data = json.lads(response_data)
     
@@ -61,7 +62,7 @@ def message():
       answer = IOT_handler(response_data['result']['action'])
       if answer is not "":
         res = json.dumps({'message': {'text': answer}},
-                     indent=4)
+                    indent=4)
       else:
         res = json.dumps({'message': {'text': response_data['result']['fulfillment']['speech']}},
                        indent=4)
@@ -89,8 +90,6 @@ def IOT_handler(req):
       return "현재 온도 :"+str(h)+"\n현재 습도 :"+str(t)
 
 if __name__ == "__main__":
-  try:  
     app.run(host = '192.168.0.10')
-  except KeyboardInterrupt:
-    print(serverend)
     yo.GPIO.OFF()
+    print("server-end")
