@@ -87,7 +87,7 @@ def IOT_handler(req):
       return False
     elif req == "ht_checker":
       h,t = yo.ht_check()
-      return "현재 온도 :"+str(h)+"\n현재 습도 :"+str(t)
+      return "현재 온도 :"+str(int(t))+"%"+"\n현재 습도 :"+str(int(h))+"%"
     return False
 if __name__ == "__main__":
   try:
