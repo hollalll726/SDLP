@@ -60,7 +60,7 @@ def message():
     answer = False 
     if 'action' in response_data['result']:
       answer = IOT_handler(response_data['result']['action'])
-    if !answer:
+    if answer:
         res = json.dumps({'message': {'text': answer}},
                     indent=4)
     else:
