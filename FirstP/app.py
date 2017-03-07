@@ -57,10 +57,10 @@ def message():
 
     response_data = data.read().decode('utf8')
     response_data = json.loads(response_data)
-    answer = "" 
+    answer = False 
     if 'action' in response_data['result']:
       answer = IOT_handler(response_data['result']['action'])
-    if answer is not "":
+    if !answer:
         res = json.dumps({'message': {'text': answer}},
                     indent=4)
     else:
@@ -81,14 +81,14 @@ def keyboard():
 def IOT_handler(req):
     if req == "LEDON":
       yo.LED_ON()
-      return ""
+      return False
     elif req == "LEDOFF":
       yo.LED_OFF()
-      return ""
+      return False
     elif req == "ht_checker":
       h,t = yo.ht_check()
       return "현재 온도 :"+str(h)+"\n현재 습도 :"+str(t)
-
+    return False
 if __name__ == "__main__":
   try:
 
