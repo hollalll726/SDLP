@@ -8,7 +8,6 @@ from flask import Flask
 from flask import request
 from flask import make_response
 
-from LED_ONOFF import *
 
 try:
     import apiai
@@ -17,6 +16,21 @@ except ImportError:
         os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)
     )
     import apiai
+
+import RPi.GPIO as GPIO
+
+class LEDONOFF:
+    GPIO.setmode(GPIO.BOARD)
+    LED = 11
+    GPIO.setup(LED,GPIO.OUT,initial = GPIO.LOW)
+    
+    def LED_ON(self):
+        GPIO.output(self.LED,GPIO.HIGH)
+    def LED_OFF(self):
+        GPIO.output(self.LED,GPIO.LOW)
+    def GPIO_OFF(self):
+        GPIO.cleanup()
+
 
 CLIENT_ACCESS_TOKEN ="1d9d3c1df94d423d8d6fe586fe6e3d0c"
 
