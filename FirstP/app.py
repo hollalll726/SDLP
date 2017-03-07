@@ -21,6 +21,7 @@ except ImportError:
 CLIENT_ACCESS_TOKEN ="1d9d3c1df94d423d8d6fe586fe6e3d0c"
 
 app = Flask(__name__)
+yo = LEDONOFF()
 
 @app.route('/message', methods=["POST"])
 def message():
@@ -35,8 +36,9 @@ def message():
     response_data = data.read().decode('utf8')
     response_data = json.lads(response_data)
     
-    a = LEDONOFF()
-
+    if response_data.get('result')('action'):
+      IOT_handler(response_data['result']['action'])
+    
     print(response_data)
     res = json.dumps({'message': {'text': response_data['result']['fulfillment']['speech']}},
                      indent=4)
@@ -51,4 +53,15 @@ def keyboard():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+def IOT_handler(req):
+    if req == "LEDON":
+      yo.LED_ON()
+    elif req == "LEDOFF":
+      yo.LED_OFF()
 
+if __name__ == "__main__":
+  try:  
+    app.run(host = '192.168.0.10')
+  except KeyboardInterrupt:
+    print(serverend)
+    yo.GPIO.OFF()
