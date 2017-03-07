@@ -18,10 +18,15 @@ except ImportError:
     import apiai
 
 import RPi.GPIO as GPIO
-
+import Adafruit_DHT.DHT22
 class LEDONOFF:
+    #LED setting
     GPIO.setmode(GPIO.BOARD)
     LED = 11
+    #am2302 setting
+    pin = '23'
+    sensor = Adafruit_DHT.DHT22
+
     GPIO.setup(LED,GPIO.OUT,initial = GPIO.LOW)
     
     def LED_ON(self):
@@ -30,7 +35,9 @@ class LEDONOFF:
         GPIO.output(self.LED,GPIO.LOW)
     def GPIO_OFF(self):
         GPIO.cleanup()
-
+    def ht_check(self):
+        humidity, temperature = Adafruit_DHT.read_retry(self.sensor,self.pin)
+        return humidity,temperature
 
 CLIENT_ACCESS_TOKEN ="1d9d3c1df94d423d8d6fe586fe6e3d0c"
 
@@ -51,12 +58,15 @@ def message():
     response_data = json.lads(response_data)
     
     if response_data.get('result')('action'):
-      IOT_handler(response_data['result']['action'])
-    
-    print(response_data)
-    res = json.dumps({'message': {'text': response_data['result']['fulfillment']['speech']}},
+      answer = IOT_handler(response_data['result']['action'])
+      if answer is not "":
+        res = json.dumps({'message': {'text': answer}},
                      indent=4)
+      else:
+        res = json.dumps({'message': {'text': response_data['result']['fulfillment']['speech']}},
+                       indent=4)
     r = make_response(res)
+    print(response_data)
     r.headers['Content-Type'] = 'application/json'
     return r
 
@@ -70,8 +80,13 @@ def keyboard():
 def IOT_handler(req):
     if req == "LEDON":
       yo.LED_ON()
+      return ""
     elif req == "LEDOFF":
       yo.LED_OFF()
+      return ""
+    elif req = "ht_checker":
+      h,t = yo.ht_check()
+      return "현재 온도 :"+str(h)+"\n현재 습도 :"+str(t)
 
 if __name__ == "__main__":
   try:  
