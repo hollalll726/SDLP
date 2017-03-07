@@ -47,10 +47,11 @@ def message():
     text_request.session_id = request_data['user_key']
     text_request.query = request_data['content']
     data = text_request.getresponse()
+
     response_data = data.read().decode('utf8')
-    response_data = json.lads(response_data)
-    
-    if response_data.get('result')('action'):
+    response_data = json.loads(response_data)
+
+    if 'action' in response_data['result']:
       IOT_handler(response_data['result']['action'])
     
     print(response_data)
@@ -74,8 +75,6 @@ def IOT_handler(req):
       yo.LED_OFF()
 
 if __name__ == "__main__":
-  try:  
     app.run(host = '192.168.0.10')
-  except KeyboardInterrupt:
-    print(serverend)
     yo.GPIO.OFF()
+    print("server-end")
