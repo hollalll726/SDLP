@@ -18,7 +18,7 @@ except ImportError:
     import apiai
 
 import RPi.GPIO as GPIO
-import Adafruit_DHT.DHT22
+import Adafruit_DHT
 class LEDONOFF:
     #LED setting
     GPIO.setmode(GPIO.BOARD)
@@ -56,7 +56,7 @@ def message():
     data = text_request.getresponse()
 
     response_data = data.read().decode('utf8')
-    response_data = json.lads(response_data)
+    response_data = json.loads(response_data)
     
     if response_data.get('result')('action'):
       answer = IOT_handler(response_data['result']['action'])
@@ -85,7 +85,7 @@ def IOT_handler(req):
     elif req == "LEDOFF":
       yo.LED_OFF()
       return ""
-    elif req = "ht_checker":
+    elif req == "ht_checker":
       h,t = yo.ht_check()
       return "현재 온도 :"+str(h)+"\n현재 습도 :"+str(t)
 
