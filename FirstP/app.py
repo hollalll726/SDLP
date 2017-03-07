@@ -90,6 +90,8 @@ def IOT_handler(req):
       return "현재 온도 :"+str(h)+"\n현재 습도 :"+str(t)
 
 if __name__ == "__main__":
+  try:
     app.run(host = '192.168.0.10')
+  except KeyboardInterrupt:
     yo.GPIO.OFF()
     print("server-end")
